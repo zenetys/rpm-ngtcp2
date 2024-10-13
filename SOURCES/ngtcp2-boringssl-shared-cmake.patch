@@ -1,0 +1,32 @@
+--- a/crypto/boringssl/CMakeLists.txt	2024-10-05 08:27:01.000000000 +0000
++++ b/crypto/boringssl/CMakeLists.txt	2024-10-23 22:41:06.320902067 +0000
+@@ -43,6 +43,29 @@
+   configure_file("${name}.in" "${name}" @ONLY)
+ endforeach()
+ 
++# Public shared library
++if(ENABLE_SHARED_LIB)
++  set(CMAKE_VERBOSE_MAKEFILE ON)
++
++  add_library(ngtcp2_crypto_boringssl SHARED ${ngtcp2_crypto_boringssl_SOURCES})
++  set_target_properties(ngtcp2_crypto_boringssl PROPERTIES
++    COMPILE_FLAGS "${WARNCFLAGS}"
++    #VERSION ${CRYPTO_BORINGSSL_LT_VERSION}
++    #SOVERSION ${CRYPTO_BORINGSSL_LT_SOVERSION}
++    C_VISIBILITY_PRESET hidden
++    POSITION_INDEPENDENT_CODE ON
++    INSTALL_RPATH "${BORINGSSL_INSTALL_RPATH}"
++  )
++  target_include_directories(ngtcp2_crypto_boringssl PUBLIC
++    ${ngtcp2_crypto_boringssl_INCLUDE_DIRS})
++  target_link_libraries(ngtcp2_crypto_boringssl ngtcp2 ${BORINGSSL_LIBRARIES})
++
++  install(TARGETS ngtcp2_crypto_boringssl
++    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
++    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
++    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
++endif()
++
+ if(ENABLE_STATIC_LIB)
+   # Public static library
+   add_library(ngtcp2_crypto_boringssl_static STATIC ${ngtcp2_crypto_boringssl_SOURCES})
