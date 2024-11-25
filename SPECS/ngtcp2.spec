@@ -12,7 +12,7 @@
 %global source_date_epoch_from_changelog 0
 
 Name: ngtcp2-0z
-Version: 1.9.0
+Version: 1.9.1
 Release: 1%{?dist}.zenetys
 Summary: ngtcp2 library implementing RFC9000 QUIC protocol
 License: MIT
