@@ -1,4 +1,8 @@
-# Supported targets: el8, el9
+# Supported targets: el8, el9, el10
+
+# el10 adds /usr/lib/rpm/check-rpaths which won't pass because we use
+# non-standard rpaths for aws-lc libraries, which is on purpose
+%global __brp_check_rpaths %{nil}
 
 %define _prefix /opt/%{name}
 %define _docdir_fmt ngtcp2
