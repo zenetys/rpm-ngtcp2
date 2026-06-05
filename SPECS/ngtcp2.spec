@@ -27,7 +27,7 @@ Source0: https://github.com/ngtcp2/ngtcp2/archive/refs/tags/v%{version}.tar.gz#/
 Patch100: ngtcp2-boringssl-shared-cmake.patch
 Patch101: ngtcp2-cmake-lib-only.patch
 
-BuildRequires: aws-lc-0z-devel
+BuildRequires: aws-lc-4z-devel
 BuildRequires: cmake >= 3.20
 BuildRequires: gcc-c++
 
@@ -49,9 +49,9 @@ The ngtcp2 project is an effort to implement RFC9000 QUIC protocol.
     -DENABLE_STATIC_LIB=OFF \
     -DENABLE_OPENSSL=OFF \
     -DENABLE_BORINGSSL=ON \
-    -DBORINGSSL_INCLUDE_DIR='%{aws_lc_0z_prefix}/include' \
-    -DBORINGSSL_LIBRARIES='-L%{aws_lc_0z_prefix}/%{_lib} -lssl -lcrypto' \
-    -DBORINGSSL_INSTALL_RPATH='$ORIGIN:%{aws_lc_0z_prefix}/%{_lib}'
+    -DBORINGSSL_INCLUDE_DIR='%{aws_lc_4z_prefix}/include' \
+    -DBORINGSSL_LIBRARIES='-L%{aws_lc_4z_prefix}/%{_lib} -lssl -lcrypto' \
+    -DBORINGSSL_INSTALL_RPATH='$ORIGIN:%{aws_lc_4z_prefix}/%{_lib}'
 
 # use --define 'make_verbose 1' to enable verbose
 %(x='%{cmake_build}'; echo ${x/ --verbose})
